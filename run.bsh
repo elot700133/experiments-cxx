@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+
+gdb --silent -x threads.gdb --args build/debug/a.out
