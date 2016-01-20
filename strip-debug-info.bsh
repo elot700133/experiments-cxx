@@ -1,0 +1,3 @@
+objcopy --only-keep-debug build/debug/a.out build/debug/debugfile
+strip --strip-debug --strip-unneeded build/debug/a.out
+#objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
