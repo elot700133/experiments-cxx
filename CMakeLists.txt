@@ -9,10 +9,12 @@ INCLUDE_DIRECTORIES(
 
 #ADD_SUBDIRECTORY(src)
 
-SET(SOURCE 
+SET(SOURCE
+  foo.cpp
+  bar.cpp
 main.cpp
 )
-SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x")
+SET(CMAKE_CXX_FLAGS "-pthread -g -O3 -flto -std=c++0x -Winline")
 ADD_EXECUTABLE(a.out ${SOURCE})
 
 TARGET_LINK_LIBRARIES(a.out
