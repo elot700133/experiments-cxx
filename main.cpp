@@ -25,15 +25,27 @@ struct function_traits<ReturnType(ClassType::*)(Args...) const>
     };
 };
 
+class Msg
+{
+  public:
+  int i;
+};
 // test code below:
 int main()
 {
-    auto lambda = [](int i) { return long(i*10); };
+    auto lambda = [](const Msg& m) { return long(10); };
 
     typedef function_traits<decltype(lambda)> traits;
 
     static_assert(std::is_same<long, traits::result_type>::value, "err");
-    static_assert(std::is_same<int, traits::arg<0>::type>::value, "err");
+    static_assert(std::is_same<const Msg&, traits::arg<0>::type>::value, "err");
+
+    typedef traits::arg<0>::type const_msg_reference;
+    typedef std::remove_reference<const_msg_reference>::type const_msg;
+    typedef std::remove_const<const_msg>::type msg_type;
+    msg_type m;
+    m.i = 3;
+    printf("%d\n", m.i);
 
     return 0;
 }
