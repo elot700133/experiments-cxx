@@ -12,7 +12,7 @@ INCLUDE_DIRECTORIES(
 SET(SOURCE 
 main.cpp
 )
-SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x")
+SET(CMAKE_CXX_FLAGS "-pthread -g -O2 -std=c++0x")
 ADD_EXECUTABLE(a.out ${SOURCE})
 
 TARGET_LINK_LIBRARIES(a.out
