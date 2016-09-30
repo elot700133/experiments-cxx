@@ -1,0 +1,28 @@
+The keyword inline does not make GCC optimize the code as in placing the code in the caller's context, eliminating push/pop stack.
+It tells GCC that function could potentially has multiple definition.  An example is:
+
+/// global_func.hpp
+
+inline void foo(){
+  // do something
+}
+
+/// bar1.cpp
+#include "global_func.hpp"
+
+void bar1(){
+  foo(); 
+}
+
+/// bar2.cpp
+#include "global_func.hpp"
+
+void bar2(){
+  foo(); 
+}
+
+if the keyword inline is not present in global_func.hpp, the linker will complain the multi-definition on function foo().
+Therefore, the keyword inline only tells compiler there could potentially be multiple definitions.
+
+Any functions definition in header file will have a chance to be optimized during compilation phase.  However, with -flto
+flag, the linker can 'inline' any function no matter where the definition is defined.
