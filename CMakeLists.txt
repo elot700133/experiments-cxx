@@ -11,6 +11,8 @@ INCLUDE_DIRECTORIES(
 
 SET(SOURCE 
 main.cpp
+foo1.cpp
+foo2.cpp
 )
 SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x")
 ADD_EXECUTABLE(a.out ${SOURCE})
