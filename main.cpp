@@ -2,9 +2,9 @@
 #include <boost/lockfree/spsc_queue.hpp>
 
 using namespace std;
-boost::lockfree::spsc_queue<int, boost::lockfree::capacity<10>> q;
 
-void push(int i)
+template<class T>
+void push(int i, T& q)
 {
   if (q.push(i))
     cout << "Done push " << i << endl;
@@ -12,84 +12,58 @@ void push(int i)
     cout << "Fail push " << i << endl;
 }
 
-void pop(int& tmp)
+template<class T>
+void pop(int& tmp, T& q)
 {
   bool s = q.pop(tmp);
   if ( s == true )
-    cout << "Done pop " << tmp << endl;
+    cout << "Done pop, value is " << tmp << endl;
   else
     cout << "Fail pop " << endl;
-}
-template<unsigned long N>
-void pop(std::array<int, N>& arr)
-{
-  int size = q.pop(&arr[0]);
-  if (size > 0)
-  {
-    for (unsigned int i=0; i<N; i++)
-    {
-      cout << "Done pop: size " << size << " arr[" << i << "] = " << arr[i] << endl;
-    }
-  }
-  else
-  {
-    cout << "Fail pop: nothing to pop" << endl;
-  }
 }
 
 void test1()
 {
+  cout << "=============" << endl;
   cout << "Running test1" << endl;
-  push(1);
-  push(2);
+  cout << "=============" << endl;
+  boost::lockfree::spsc_queue<int, boost::lockfree::capacity<2>> q;
+  push(1, q);
+  push(2, q);
 
   int tmp;
-  pop(tmp);
+  pop(tmp, q);
 
-  push(3);
+  push(3, q);
 
-  pop(tmp);
-  pop(tmp);
+  pop(tmp, q);
+  pop(tmp, q);
 }
+// test 1 result
+// Running test1
+// Done push 1
+// Fail push 2             <-------------- notice here it should be successful because capacity is 2
+// Done pop, value is 1
+// Done push 3
+// Done pop, value is 3
+// Fail pop
+
 void test2()
 {
+  cout << "=============" << endl;
   cout << "Running test2" << endl;
-  std::array<int, 10> arr;
-
-  push(1);
-  push(2);
-  push(3);
-  push(4);
-  push(5);
-  push(6);
-  push(7);
-  push(8);
-  push(9);
-  push(10); // cannot pushed even though the queue size is set to 10
-  push(11);
-  push(12);
-  pop(arr);
-
-  push(13); // push return true (bug)
-  push(14);
-  pop(arr); // popped array showed 14, 2, 3, ...  // missing 13
-
-  push(15);
-  push(16);
-  pop(arr);
-
-  push(17);
-  push(18);
-  pop(arr);
-
-  push(19);
-  push(20);
-  pop(arr);
+  cout << "=============" << endl;
+  boost::lockfree::spsc_queue<int, boost::lockfree::capacity<1>> q;
+  push(1, q);
 }
+//Running test2
+//Fail push 1
+
 int main(int argc, const char *argv[])
 {
-  //test1();
+  test1();
   test2();
 
   return 0;
 }
+
