@@ -1,4 +1,5 @@
 all:
+	./compile-armadillo.bsh
 	mkdir -p build/debug && cd build/debug && \
 	  cmake ../.. && \
 	  make --no-print-directory
@@ -7,3 +8,4 @@ all:
 clean:
 	rm -rf build
 	rm a.out
+	rm -rf armadillo-7.800.2
