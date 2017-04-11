@@ -6,3 +6,4 @@ all:
 
 clean:
 	rm -rf build
+	rm a.out
