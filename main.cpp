@@ -65,6 +65,7 @@ class Handler
 class WaitSetThread
 {
   public:
+#if 0
     template <typename ClassType, typename ReturnType, typename... Args, typename ClassObj, typename Placeholder>
     void add_handle(ReturnType(ClassType::*)(Args...) , ClassObj, Placeholder)
     {
@@ -76,9 +77,61 @@ class WaitSetThread
       typedef typename type_list<Args...>::template type<0> const_msg_reference;
       typedef typename std::remove_reference<const_msg_reference>::type const_msg;
       typedef typename std::remove_const<const_msg>::type msg_type;
-    msg_type m;
-    m.i = 3;
-    printf("%d\n", m.i);
+      msg_type m;
+      m.i = 3;
+      printf("%d\n", m.i);
+    }
+    template <typename ClassType, typename ReturnType, typename... Args>
+    void add_handle(ReturnType(ClassType::*)(Args...))
+    {
+      enum { arity = sizeof...(Args) };
+      // arity is the number of arguments.
+
+      typedef ReturnType result_type;
+
+      typedef typename type_list<Args...>::template type<0> const_msg_reference;
+      typedef typename std::remove_reference<const_msg_reference>::type const_msg;
+      typedef typename std::remove_const<const_msg>::type msg_type;
+      msg_type m;
+      m.i = 3;
+      printf("%d\n", m.i);
+    }
+#endif
+    template <typename ClassType, typename ReturnType, typename... Args>
+    void add_handle(ReturnType(ClassType::*)(Args...) const)
+    {
+      enum { arity = sizeof...(Args) };
+      // arity is the number of arguments.
+
+      typedef ReturnType result_type;
+
+      typedef typename type_list<Args...>::template type<0> const_msg_reference;
+      typedef typename std::remove_reference<const_msg_reference>::type const_msg;
+      typedef typename std::remove_const<const_msg>::type msg_type;
+      msg_type m;
+      m.i = 3;
+      printf("%d\n", m.i);
+    }
+
+    template <typename ClassType, typename ReturnType, typename... Args>
+    void add_handle(ReturnType(ClassType::*)(Args...) )
+    {
+      enum { arity = sizeof...(Args) };
+      // arity is the number of arguments.
+
+      typedef ReturnType result_type;
+
+      typedef typename type_list<Args...>::template type<0> const_msg_reference;
+      typedef typename std::remove_reference<const_msg_reference>::type const_msg;
+      typedef typename std::remove_const<const_msg>::type msg_type;
+      msg_type m;
+      m.i = 3;
+      printf("%d\n", m.i);
+    }
+    template <typename T>
+    void add_handle(T lambda)
+    {
+      add_handle(&decltype(lambda)::operator ());
     }
 };
 
@@ -104,7 +157,8 @@ class WaitSetThread
 // test code below:
 int main()
 {
-    auto lambda = [](const Msg& m) mutable -> long { return long(10); };
+    auto lambda = [](const Msg& m) -> long { return long(10); };
+    auto& lambda_ref = lambda;
 
     //typedef function_traits<decltype(lambda)> traits;
 
@@ -126,7 +180,11 @@ int main()
     //foo([](){});
 
     WaitSetThread wst;
-    wst.add_handle(&Handler::handle, &h, std::placeholders::_1);
-    wst.add_handle(&decltype(lambda)::operator (), lambda, std::placeholders::_1);
+//    wst.add_handle(&Handler::handle, &h, std::placeholders::_1);
+    wst.add_handle(&Handler::handle);
+    //lambda.operator ();
+    //wst.add_handle(&decltype(lambda)::operator ());
+    wst.add_handle(lambda);
+ //   wst.add_handle(&decltype(lambda)::operator (), lambda, std::placeholders::_1);
     return 0;
 }
