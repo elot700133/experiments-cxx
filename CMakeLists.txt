@@ -5,6 +5,7 @@ PROJECT(example-c++)
 
 INCLUDE_DIRECTORIES(
   ${LIBRARY_INCLUDE_DIR}
+  ./eigen
 )
 
 #ADD_SUBDIRECTORY(src)
@@ -12,7 +13,7 @@ INCLUDE_DIRECTORIES(
 SET(SOURCE 
 main.cpp
 )
-SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x")
+SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++11")
 ADD_EXECUTABLE(a.out ${SOURCE})
 
 TARGET_LINK_LIBRARIES(a.out
