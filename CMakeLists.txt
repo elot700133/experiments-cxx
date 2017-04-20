@@ -6,6 +6,7 @@ PROJECT(example-c++)
 INCLUDE_DIRECTORIES(
   ${LIBRARY_INCLUDE_DIR}
   ./eigen
+  /usr/local/include/eigen3/
 )
 
 #ADD_SUBDIRECTORY(src)
