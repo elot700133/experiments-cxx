@@ -12,6 +12,7 @@ INCLUDE_DIRECTORIES(
 SET(SOURCE 
 main.cpp
 )
+#SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x -gsplit-dwarf")
 SET(CMAKE_CXX_FLAGS "-pthread -g -std=c++0x")
 ADD_EXECUTABLE(a.out ${SOURCE})
 
