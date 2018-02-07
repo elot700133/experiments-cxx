@@ -5,8 +5,9 @@ using namespace std;
 class A
 {
   public:
-   A(int i, int j){}
-   A(int i, A a){}
+   A(int i){}            //(1)
+   A(int i, int j){}     //(2)
+   A(int i, A a){}       //(3)
 };
 
 void f(A a)
@@ -15,8 +16,9 @@ void f(A a)
 }
 int main(int argc, const char *argv[])
 {
-  f({1,2}); // does compile without explicit only
-  f({1,{1,2}}); // even more fucked up
+  f(1);            // converts to A using (1)
+  f({1,2});        // converts to A using (2) does compile without explicit only
+  f({1,{1,2}});    // converts to A using (3)
 
   A a = {3,{4,5}};
 
