@@ -56,9 +56,17 @@ void hexDump (char *desc, void *addr, int len) {
 
 int main(int argc, const char *argv[])
 {
- char my_str[] = "a char string greater than 16 chars";
- hexDump("my_str", &my_str, sizeof(my_str));
+  char my_str[] = "a char string greater than 16 chars";
+  hexDump("my_str", &my_str, sizeof(my_str));
 
 
   return 0;
 }
+
+// output
+#if 0
+my_str:
+  0000  61 20 63 68 61 72 20 73 74 72 69 6e 67 20 67 72  a char string gr
+  0010  65 61 74 65 72 20 74 68 61 6e 20 31 36 20 63 68  eater than 16 ch
+  0020  61 72 73 00
+#endif
