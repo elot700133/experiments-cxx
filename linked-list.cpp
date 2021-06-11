@@ -47,3 +47,32 @@ bool twoPointersTemplateExample{
     }
     return false;   // change return value to fit specific problem
 }
+
+// remove nth node from the end of singly linked list
+// need clean up
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode* p1 = head;
+    ListNode* p2 = head;
+    int i=0;
+    while(p1 != nullptr) {
+        i++;
+
+        if (i >= n+2) {
+            p2 = p2->next;
+        }
+        p1 = p1->next;
+    }
+
+    if (n < i)
+        p2->next = p2->next->next;
+    else if (n==i)
+        if (i!=1)
+            head = head->next;
+        else
+            head = nullptr;
+
+
+    //printf("p2 = %d\n",p2->val);
+    //printf("i = %d\n",i);
+    return head;
+}
