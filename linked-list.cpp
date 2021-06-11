@@ -76,3 +76,89 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     //printf("i = %d\n",i);
     return head;
 }
+
+// Intersection of Two Linked Lists
+// Given the heads of two singly linked-lists headA and headB, 
+// return the node at which the two lists intersect. 
+// If the two linked lists have no intersection at all, return null.
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        // brute force
+        #if 0
+        // O(M*N)
+        // O(1)
+        ListNode* pA = headA;
+        while(pA != nullptr) {
+            ListNode* pB = headB;
+            while(pB != nullptr) {
+                if(pA == pB) return pA;
+                pB = pB->next;
+            }
+            pA = pA->next;
+        }
+        return nullptr;
+        #endif
+        
+        // hash table
+        #if 0
+        // O(M+N)
+        // O(M)
+        std::map<ListNode*,bool> mapA,mapB;
+        ListNode* pA = headA;
+        while(pA != nullptr) {
+            mapA[pA] = true;
+            pA = pA->next;
+        }
+        ListNode* pB = headB;
+        while(pB != nullptr) {
+            if(mapA.find(pB) != mapA.end()) return pB;
+            pB = pB->next;
+        }
+        return nullptr;
+        #endif
+        
+        // two pointer approach
+        ListNode* pA = headA;
+        int lenA = 0;
+        while(pA != nullptr) {
+            lenA++;
+            pA = pA->next;
+        }
+        ListNode* pB = headB;
+        int lenB = 0;
+        while(pB != nullptr) {
+            lenB++;
+            pB = pB->next;
+        }
+
+        if (lenA > lenB) {
+            return helper(headA, headB, lenA, lenB);
+        }
+        else {
+            return helper(headB, headA, lenB, lenA);
+        }
+        return nullptr;
+    }
+    
+    ListNode* helper(ListNode* headLong, ListNode* headShort, int lenLong, int lenShort) {
+            ListNode* pLong = headLong;
+            int diff = lenLong - lenShort;
+            int i = 0;
+            while(pLong != nullptr) {
+                i++;
+                if(i-1 == diff) {
+                    break;
+                }
+                pLong = pLong->next;
+            }
+            
+            ListNode* pShort = headShort;
+            while(pLong != nullptr) {
+                if (pLong == pShort) return pShort;
+                pLong = pLong->next;
+                pShort = pShort->next;
+            }
+        return nullptr;
+    }
+};
