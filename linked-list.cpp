@@ -1,5 +1,4 @@
-
-
+//==============================================================
 // template for using two pointers techniques
 // can find cycling link list
 bool twoPointersTemplateExample{
@@ -20,6 +19,7 @@ bool twoPointersTemplateExample{
     return false;   // change return value to fit specific problem
 }
 
+//========================================================================
 // remove nth node from the end of singly linked list
 // need clean up
 ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -49,6 +49,7 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     return head;
 }
 
+//===============================================================================
 // Intersection of Two Linked Lists
 // Given the heads of two singly linked-lists headA and headB, 
 // return the node at which the two lists intersect. 
@@ -136,16 +137,7 @@ public:
 };
 
 
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+//====================================================
 // reverse a singly linked list
 ListNode* reverseList(ListNode* head) {
     // iterative
