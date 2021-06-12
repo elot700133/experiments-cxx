@@ -1,32 +1,4 @@
-// reverse a singly linked list
-ListNode* reverseList(ListNode* head) {
-    // iterative
-    // keep 3 pointers
-    ListNode* prev = nullptr;
-    ListNode* next = nullptr;
-    ListNode* cur = head;
-    while(cur != nullptr) {
-        next = cur->next;
 
-        cur->next = prev;
-
-        // advance prev and cur one step forward.
-        prev = cur;
-        cur = next;
-    }
-    return prev;
-}
-// reverse a singly linked list, for loop style
-ListNode* reverseList(ListNode* head) {
-    ListNode* prev = nullptr;
-    ListNode* next = nullptr;
-    ListNode* cur = head;
-    for(; cur!=nullptr; prev=cur, cur=next) {
-        next = cur->next;
-        cur->next = prev;
-    }
-    return prev;
-}
 
 // template for using two pointers techniques
 // can find cycling link list
@@ -162,3 +134,59 @@ public:
         return nullptr;
     }
 };
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+// reverse a singly linked list
+ListNode* reverseList(ListNode* head) {
+    // iterative
+    // keep 3 pointers
+    ListNode* prev = nullptr;
+    ListNode* next = nullptr;
+    ListNode* cur = head;
+    while(cur != nullptr) {
+        next = cur->next;
+
+        cur->next = prev;
+
+        // advance prev and cur one step forward.
+        prev = cur;
+        cur = next;
+    }
+    return prev;
+}
+// reverse a singly linked list, for loop style
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* next = nullptr;
+    ListNode* cur = head;
+    for(; cur!=nullptr; prev=cur, cur=next) {
+        next = cur->next;
+        cur->next = prev;
+    }
+    return prev;
+}
+
+// recursive
+ListNode* reverseList(ListNode* head) {
+    return recursive(nullptr, head);
+}
+ListNode* recursive(ListNode* prev, ListNode* cur) {
+    if(cur == nullptr) {
+        return prev;
+    }
+
+    ListNode* next = cur->next;
+    cur->next = prev;
+
+    return recursive(cur, next);
+}
