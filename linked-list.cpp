@@ -245,3 +245,24 @@ public:
     #endif
     }
 };
+
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head) return head;
+        
+        ListNode* odd = head;
+        ListNode* even_head = head->next;
+        ListNode* even = head->next;
+        while(odd && even && even->next) {
+            odd->next = odd->next->next;
+            even->next = even->next->next;
+            
+            odd = odd->next;
+            even = even->next;
+        }
+        odd->next = even_head;
+        return head;
+    }
+};
