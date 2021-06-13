@@ -182,3 +182,66 @@ ListNode* recursive(ListNode* prev, ListNode* cur) {
 
     return recursive(cur, next);
 }
+
+//-------------------------------------------------
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        #if 0
+        ListNode* prev = nullptr;
+        ListNode* cur = head;
+        while(cur != nullptr) {
+            if (cur->val == val) {
+                if(prev)
+                {
+                    prev->next = cur->next;
+                    cur = cur->next;
+                }
+                else
+                {
+                    head = cur->next;
+                    cur = cur->next;
+                    prev = nullptr;
+                }
+            }
+            else {
+                prev = cur;
+                cur = cur->next;
+            }
+            
+        }
+        return head;
+        #endif
+        
+        //better solution
+        #if 1
+        ListNode* temp;
+
+        while(head != 0 && head->val == val){
+
+            head = head->next;
+        }
+
+        if(head == 0)
+        {
+            return NULL;
+        }
+
+        temp = head;
+
+        while(temp->next != 0){
+
+            if(temp->next->val == val){
+
+                temp->next = temp->next->next;
+            }
+
+            else{
+                temp = temp->next;
+            }
+        }
+
+        return head; 
+    #endif
+    }
+};
