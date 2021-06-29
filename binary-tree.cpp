@@ -1,5 +1,5 @@
-// in order traversal - recursion
-class SolutionInOrderRecur {
+// pre-order traversal - recursion
+class SolutionPreOrderRecur {
 public:
     void recur(TreeNode* n, vector<int>& v) {
         if(!n) return;
@@ -15,8 +15,8 @@ public:
     }
 };
 
-// in order traversal - iterative
-class SolutionInOrderIter {
+// pre-order traversal - iterative
+class SolutionPreOrderIter {
 public:   
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> v;
@@ -33,6 +33,50 @@ public:
                 s.push(cur->right);
                 s.push(cur->left);
             }
+        }
+        return v;
+    }
+};
+
+// in-order
+class SolutionInOrderRecur {
+public:
+    void inOrderRecur(TreeNode* n, vector<int>& v) {
+        if(!n) return;
+        inOrderRecur(n->left,v);
+        v.push_back(n->val);
+        inOrderRecur(n->right,v);
+        
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> v;
+        inOrderRecur(root,v);
+        return v;
+    }
+};
+
+// in-order
+class SolutionInOrderIter {
+public:
+
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> v;
+        if(!root) return v;
+        stack<TreeNode*> s;
+        TreeNode* cur = root;
+        while(cur != nullptr || !s.empty()) {
+            while(cur) {
+                s.push(cur);
+                cur = cur->left;
+            }
+            
+            cur = s.top();
+            s.pop();
+            
+            v.push_back(cur->val);
+            
+            cur = cur->right;
+            
         }
         return v;
     }
