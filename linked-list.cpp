@@ -266,3 +266,140 @@ public:
         return head;
     }
 };
+
+// Merge two list
+//requirement
+// can list be empty?
+// can content be other than numbers?
+// are there negative number?
+// what is max an min of allowed numbers?
+// size of list?
+
+// algo
+// Using one loop until l1 or l2 is exhausted
+// inside the loop, it will compare valu of l1 or l2, the smaller or non null value will 
+// be assigned to resulting list node, then increment the node that was used or assigned.
+
+// performance
+// O(m+n)
+// memory 2(m+n)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* cur1 = l1;
+        ListNode* cur2 = l2;
+        
+        if (!cur1 && !cur2) {
+            return nullptr;
+        }
+        if (!cur1 && cur2)
+            return cur2;
+        else if (cur1 && !cur2)
+            return cur1;
+        
+
+        ListNode* cur3 = nullptr;
+        ListNode* head = nullptr;
+        
+        if(cur1->val > cur2->val) {
+            cur3 = cur2;
+            cur2 = cur2->next;
+        }
+        else {
+            cur3 = cur1;
+            cur1 = cur1->next;
+        }
+        
+        head = cur3;
+        
+        while(cur1 && cur2) {
+            if(cur1->val > cur2->val) {
+                cur3->next = cur2;
+                cur3 = cur3->next;
+                cur2 = cur2->next;
+            }
+            else {
+                cur3->next = cur1;
+                cur3 = cur3->next;
+                cur1 = cur1->next;
+            }
+        }
+        
+        if (cur1)
+            cur3->next = cur1;
+        else
+            cur3->next = cur2;
+        
+        return head;
+        
+    }
+};
+
+#if 0
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* r = nullptr;
+        ListNode* head = nullptr;
+        while(l1 != nullptr || l2 != nullptr)
+        {
+            int c = 0;
+            
+            if (l1 && l2)
+            {
+                if (l1->val < l2->val)
+                {
+                    c = l1->val;
+                    l1 = l1->next;
+                }
+                else
+                {
+                    c = l2->val;
+                    l2 = l2->next;
+                }
+            }
+            else
+            {
+                if (l1)
+                {
+                    c = l1->val;
+                    l1 = l1->next;
+                }
+                if (l2)
+                {
+                    c = l2->val;
+                    l2 = l2->next;
+                }
+            }
+            
+
+
+            if (head == nullptr)
+            {
+                // first time
+                head = new ListNode(c);
+                r = head;
+            }
+            else
+            {
+                r->next = new ListNode(c);
+                r = r->next;
+            }
+
+        }
+        return head;
+    }
+};
+#endif
