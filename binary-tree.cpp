@@ -1,3 +1,15 @@
+// pre-order
+val, left, right
+
+// in-order
+left, val, right
+
+// post-order
+left, right, val
+
+// level order
+
+
 // pre-order traversal - recursion
 class SolutionPreOrderRecur {
 public:
