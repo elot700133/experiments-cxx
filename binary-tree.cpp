@@ -94,6 +94,26 @@ public:
     }
 };
 
+//=======================================================
+class SolutionPostOrderRecur {
+public:
+    
+    void postOrderRecur(TreeNode* n, vector<int>& v) {
+        if(!n) return;
+        postOrderRecur(n->left,v);
+        postOrderRecur(n->right,v);
+        v.push_back(n->val);
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> v;
+        postOrderRecur(root,v);
+        return v;
+    }
+};
+
+//=======================================================
+// TODO: post-order iterative
+
 
 //=======================================================
 // level order traversal
