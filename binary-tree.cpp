@@ -81,3 +81,41 @@ public:
         return v;
     }
 };
+
+
+//=======================================================
+// level order traversal
+class Solution {
+public:
+    void height(TreeNode* n, int d, int& max_d) {
+        if(!n) return;
+        
+        max_d = max(d+1, max_d);
+        
+        height(n->left,d+1,max_d);
+        height(n->right,d+1,max_d);
+    }
+    
+    void level(TreeNode* n, int d, vector<vector<int>>& v) {
+        if(!n) return;
+        
+        v[d].push_back(n->val);
+        
+        level(n->left, d+1, v);
+        level(n->right, d+1, v);
+    }
+    
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return vector<vector<int>>();
+        // find how deep tree is
+        int max_d = -1;
+        height(root, 0, max_d);
+        //printf("max_d %d\n",max_d);
+        
+        vector<vector<int>> v(max_d);
+        level(root, 0, v);
+        return v;
+        
+        // traverse based on level
+    }
+};
