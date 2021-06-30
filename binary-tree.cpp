@@ -176,3 +176,27 @@ public:
         return symRecur(root->left, root->right);
     }
 };
+
+//========================================================
+// path sum
+// Given the root of a binary tree and an integer targetSum, return true if the tree has 
+// a root-to-leaf path such that adding up all the values along the path equals targetSum.
+// A leaf is a node with no children.
+class Solution {
+public:
+    bool recur(TreeNode* n, int sum, int targetSum){
+        if(!n) return false;
+        
+        if(!n->left && !n->right) {
+            if (sum + n->val == targetSum) return true;
+        }
+        
+        return recur(n->left, sum+n->val, targetSum) || 
+            recur(n->right, sum+n->val, targetSum);
+        
+    }
+    
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        return recur(root, 0, targetSum);
+    }
+};
