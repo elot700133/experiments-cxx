@@ -154,3 +154,25 @@ int maximum_depth(TreeNode* root) {
     int right_depth = maximum_depth(root->right);
     return max(left_depth, right_depth) + 1;      // return depth of the subtree rooted at root
 }
+
+//========================================================
+// mirror check (different from balance)
+class Solution {
+public:
+    bool symRecur(TreeNode* r1, TreeNode* r2) {
+        if(!r1 && !r2) return true;
+        if(r1 && r2) {
+            return (r1->val == r2->val) && 
+                  symRecur(r1->right, r2->left) && 
+                  symRecur(r1->left, r2->right);
+        }
+        
+        return false;
+        
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return symRecur(root->left, root->right);
+    }
+};
