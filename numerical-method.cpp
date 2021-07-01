@@ -56,7 +56,7 @@ int addOvf(int* result, int a, int b)
 // Input: nums = [2,7,11,15], target = 9
 // Output: [0,1]
 // Output: Because nums[0] + nums[1] == 9, we return [0, 1].
-class Solution {
+class Solution1 {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         // map of target - nums : index
@@ -85,3 +85,29 @@ public:
         return v;
     }
 };
+
+// dynamic programming solution
+// better solution
+// O(n), O(n)
+vector<int> twoSum(vector<int> &numbers, int target)
+{
+    //Key is the number and value is its index in the vector.
+	unordered_map<int, int> hash;
+	vector<int> result;
+	for (int i = 0; i < numbers.size(); i++) {
+		int numberToFind = target - numbers[i];
+
+            //if numberToFind is found in map, return them
+		if (hash.find(numberToFind) != hash.end()) {
+			result.push_back(hash[numberToFind]);
+			result.push_back(i);			
+			return result;
+		}
+
+            //number was not found. Put it in the map.
+		hash[numbers[i]] = i;
+	}
+	return result;
+}
+
+//=================================================================
