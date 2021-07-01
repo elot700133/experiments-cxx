@@ -34,3 +34,17 @@ int addOvf(int* result, int a, int b)
         return -1; 
     return 0; 
 } 
+
+//================================================
+// return reversed of input integer
+    int reverse(int x) {
+        int ans = 0;
+        while (x) {
+            int temp = ans * 10 + x % 10;
+            if (temp / 10 != ans)
+                return 0;
+            ans = temp;
+            x /= 10;
+        }
+        return ans;
+    }
