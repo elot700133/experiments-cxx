@@ -85,5 +85,34 @@ public:
     }
 };
 
+//=========================================================================
+// Generate Well Formed Parenthesis
+// Input: n = 3
+// Output: ["((()))","(()())","(())()","()(())","()()()"]
+// tags: recur
+// explain: using int n and m to track open and closed paren
+// 
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        
+        // n will track number of "(" available
+        // m is init to 0 because first time it cannot add an ")"
+        addParen(result,"",n,0);
+        return result;
+    }
+    
+    // m - 
+    void addParen(vector<string>& result, string str, int n, int m) {
+        if(n==0 && m==0){
+            result.push_back(str);
+            return;
+        }
+        
+        if(m>0) addParen(result, str+")", n, m-1);
+        if(n>0) addParen(result, str+"(", n-1, m+1);
+    }
+};
 
 
