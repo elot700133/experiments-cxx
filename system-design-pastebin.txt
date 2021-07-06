@@ -1,0 +1,64 @@
+Create a pastebin application server
+https://www.educative.io/courses/grokking-the-system-design-interview/3jyvQ3pg6KO
+
+- requirement
+  - functional
+    
+    1. user can paste text receive url address to pasted text.
+    2. provide text when url address is browsed
+    3. after accessed url, delete text
+    4. auto clean up after expiration time.
+    
+  - non-functional
+  
+    1. high availability
+    2. low latency
+  
+  - derived
+  
+    1. api?
+    
+- estimate
+
+  traffic:
+  
+  users: 100M per month
+  text per users: 10 per month
+  access: same as creating the url
+  
+  expecting: 100M * 10 = 1,000 million creation of url per month
+             same rate for access
+             
+  storage:
+  
+  text size: 100bytes (estimate)
+  
+  expecting storage object: 1,000 million * 100 bytes = 100gb per month
+  
+  bandwidth:
+  
+  recv: 100gb per month = 100gb/30 = 3.3gb per day => 3.3gb/24 hr = 137.5mb per hour => 137.5/60/60 = 38kb per second
+  send: same
+  
+  memory:
+  
+- api:
+
+  url create(username, textinput)
+
+  bool delete(username, url)
+
+  bool set_default_exp(username, datetime)
+
+- data base:
+
+  table1:
+
+  username
+  map<url, textfile> map
+
+- algorithm:
+
+  given text input, encrypt it using md5 to create file
+
+  
