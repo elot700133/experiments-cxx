@@ -26,6 +26,15 @@ for (int i = intArray.size()-2; i >= 2; i--)
 // we can insert it at the required index.
 intArray[2] = 30;
 
+//===========================================
+// make it a generic function
+void insert(int index, int value, vector<int>& arr) {
+	for(int i=arr.size()-2; i>=index; --i) {
+	    arr[i+1] = arr[i];
+	}
+	arr[index] = value;
+}
+
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 // questions
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
