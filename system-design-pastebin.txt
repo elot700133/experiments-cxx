@@ -3,6 +3,23 @@ https://www.educative.io/courses/grokking-the-system-design-interview/3jyvQ3pg6K
 
 - requirement
   - functional
+  - performance
+  - extended - api
+- user case
+- estimate
+  - traffic
+  - storage
+  - bandwidth
+- memory
+- deployment
+  - physical server
+  - database server
+- database
+  - table
+- algorithm
+
+- requirement
+  - functional
     
     1. user can paste text receive url address to pasted text.
     2. provide text when url address is browsed
