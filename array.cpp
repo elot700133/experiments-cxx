@@ -4,7 +4,7 @@
 
 //=======================================
 // insert at beginning of array
-for (int i = 3; i >= 0; i--) {
+for (int i = intArray.size()-2; i >= 0; i--) {   // -2 because last index is -1, -2 is previous index before last index
     intArray[i + 1] = intArray[i];
 }
 
@@ -16,7 +16,7 @@ intArray[0] = 20;
 // insert at anywhere
 // Say we want to insert the element at index 2.
 // First, we will have to create space for the new element.
-for (int i = 4; i >= 2; i--)
+for (int i = intArray.size()-2; i >= 2; i--)
 {
     // Shift each element one position to the right.
     intArray[i + 1] = intArray[i];
