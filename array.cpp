@@ -69,6 +69,29 @@ public:
 //Output: [1,2,2,3,5,6]
 //Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
 //The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+
+// solution from discussion board
+// key is to iterate from the back
+class Solution {
+public:
+    void merge(int A[], int m, int B[], int n) {
+        int i=m-1; // last index of A
+		int j=n-1; // last index of B
+		int k = m+n-1; // last index of new array (which is using A as storage)
+		while(i >=0 && j>=0)
+		{
+			if(A[i] > B[j])
+				A[k--] = A[i--];
+			else
+				A[k--] = B[j--];
+		}
+		while(j>=0)
+			A[k--] = B[j--];
+    }
+};
+
+// my first solution
+// this iterate from front
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
@@ -89,13 +112,7 @@ public:
                 i++;
             }
         }
-        nums1 = ans;
-    }
-    
-    void insert(int index, int value, vector<int>& arr) {
-        for(int i=arr.size()-2; i>=index;--i) {
-            arr[i+1] = arr[i];
-        }
-        arr[index] = value;
+        nums1 = ans; // copy is bad!
     }
 };
+
