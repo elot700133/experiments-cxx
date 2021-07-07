@@ -35,6 +35,18 @@ void insert(int index, int value, vector<int>& arr) {
 	arr[index] = value;
 }
 
+//==========================================
+// Say we want to delete the element at index 1
+void del(int index, vector<int>& arr) {
+	for (int i = index+1; i < length; i++) {
+	    // Shift each element one position to the left
+	    int_array[i - 1] = int_array[i];
+	}
+
+	// Again, the length needs to be consistent with the current
+	// state of the array.
+	length--;
+}
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 // questions
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
