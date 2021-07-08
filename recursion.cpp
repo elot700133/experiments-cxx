@@ -1,8 +1,8 @@
 //=============================================
-// iterative 
+// Reverse a string
 //
 //---------------------------------------------
-// using stack
+// iterative using stack
 // O(n)
 // O(n)
 void reverse_string(string &str)
@@ -17,7 +17,7 @@ void reverse_string(string &str)
    }      
 }
 //---------------------------------------------
-// using swap
+// iterative using swap
 // O(n)
 // O(1)
 void reverse_string(string& str) {
@@ -27,7 +27,7 @@ void reverse_string(string& str) {
    }
 }
 //---------------------------------------------
-// two pointers
+// iterative two pointers
 // O(n)
 // O(1)
 void reverse_string(string& str) {
@@ -35,4 +35,18 @@ void reverse_string(string& str) {
    for(int i=0, int j = n-1; i<j; i++, j--) {
       swap(str[i],str[j]);
    }
+}
+//---------------------------------------------
+// recursive
+// O(n)
+// O(1)
+// note: this recursive method is very similar
+// to swapping method
+void reverse_string(string& str, int i=0) {
+   // base case
+   int n = str.length();
+   if (i == n/2)
+      return;
+   swap(str[i], str[n-i-1]);
+   reverse_string(str,i+);
 }
